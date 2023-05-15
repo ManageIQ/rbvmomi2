@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [3.6.1] - 2023-02-05
+### Fixed
+- Fix unknown VMODL type ContentLibraryItem (#35)
+
 ### Added
 - Add ManageIQ/bundler-inject (#31)
 
@@ -57,7 +62,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix unescaped characters in Datastore URLs (#183)
 - Improve #to_json behavior on RbVmomi Objects (#185)
 
-[Unreleased]: https://github.com/ManageIQ/rbvmomi2/compare/v3.6.0...HEAD
+[Unreleased]: https://github.com/ManageIQ/rbvmomi2/compare/v3.6.1...HEAD
+[3.6.1]: https://github.com/ManageIQ/rbvmomi2/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.4.2...v3.5.0
 [3.4.2]: https://github.com/ManageIQ/rbvmomi2/compare/v3.4.1...v3.4.2
