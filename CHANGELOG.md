@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add vSphere 8.0U2 support ([#38](https://github.com/ManageIQ/rbvmomi2/pull/38))
+- Add vSphere 8.0U1 support ([#37](https://github.com/ManageIQ/rbvmomi2/pull/37))
 
 ## [3.6.1] - 2023-02-05
 ### Fixed
