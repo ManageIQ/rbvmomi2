@@ -1,6 +1,6 @@
 # RbVmomi
 
-[<img src="https://badge.fury.io/rb/rbvmomi2.svg" alt="gem-version">](https://rubygems.org/gems/rbvmomi2) 
+[<img src="https://badge.fury.io/rb/rbvmomi2.svg" alt="gem-version">](https://rubygems.org/gems/rbvmomi2)
 ![Test](https://github.com/ManageIQ/rbvmomi2/workflows/Test/badge.svg)
 ![Lint](https://github.com/ManageIQ/rbvmomi2/workflows/Lint/badge.svg)
 [<img src="https://badges.gitter.im/vmware/rbvmomi.svg">](https://gitter.im/vmware/rbvmomi)
@@ -94,6 +94,11 @@ something generally useful please open a [pull request](https://github.com/Manag
 Open an issue on the [issues page](https://github.com/ManageIQ/rbvmomi2/issues)
 or  fork the project on [GitHub](https://github.com/ManageIQ/rbvmomi2) and send a
 [pull request](https://github.com/ManageIQ/rbvmomi2/pulls).
+
+## Contributors
+
+A huge thanks goes to all of the [contributors](https://github.com/ManageIQ/rbvmomi2/graphs/contributors) on this project.
+To see the full list, use `git shortlog -nes`.
 
 ## Support
 
