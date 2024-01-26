@@ -21,11 +21,3 @@ end
 RuboCop::RakeTask.new
 
 YARD::Rake::YardocTask.new
-
-desc 'Update the CONTRIBUTORS.md'
-task :update_contributors do
-  contributors = `git log --format='%aN <%aE>'`.each_line.map(&:chomp).sort.uniq
-  contributors.reject! { |c| c.start_with?('dependabot[bot]') }
-  content = contributors.map { |c| "* #{c}" }.join("\n") << "\n"
-  File.write(File.expand_path('CONTRIBUTORS.md', __dir__), content)
-end
