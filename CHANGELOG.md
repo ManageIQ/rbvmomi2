@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [3.8.0] - 2024-07-03
 ### Added
 - Add vSphere 8.0U3 support ([#56](https://github.com/ManageIQ/rbvmomi2/pull/56))
 
@@ -73,7 +75,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix unescaped characters in Datastore URLs ([#183](https://github.com/vmware/rbvmomi/pull/183))
 - Improve #to_json behavior on RbVmomi Objects ([#185](https://github.com/vmware/rbvmomi/pull/185))
 
-[Unreleased]: https://github.com/ManageIQ/rbvmomi2/compare/v3.7.1...HEAD
+[Unreleased]: https://github.com/ManageIQ/rbvmomi2/compare/v3.8.0...HEAD
+[3.8.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.7.1...v3.8.0
 [3.7.1]: https://github.com/ManageIQ/rbvmomi2/compare/v3.7.0...v3.7.1
 [3.7.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.6.1...v3.7.0
 [3.6.1]: https://github.com/ManageIQ/rbvmomi2/compare/v3.6.0...v3.6.1
