@@ -103,3 +103,7 @@ To see the full list, use `git shortlog -nes`.
 ## Support
 
 You can chat on [Gitter](https://gitter.im/vmware/rbvmomi)
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
