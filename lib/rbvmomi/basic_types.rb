@@ -23,6 +23,10 @@ module RbVmomi
         end
       end
 
+      def as_json
+        to_s
+      end
+
       init
     end
 
@@ -161,22 +165,24 @@ module RbVmomi
         q.text ')'
       end
 
-      def as_hash(val)
-        if val.kind_of?(Array)
-          val.map { |v| as_hash(v) }
-        elsif val.respond_to?(:to_hash)
-          val.to_hash
-        else
-          val
-        end
-      end
-
-      def to_hash
-        props.transform_values { |v| as_hash(v) }
+      def as_json
+        props.transform_values { |v| as_json_nested(v) }
       end
 
       def to_json(options = nil)
-        to_hash.merge(JSON.create_id => self.class.name).to_json
+        as_json.merge(JSON.create_id => self.class.name).to_json
+      end
+
+      private
+
+      def as_json_nested(val)
+        if val.kind_of?(Array)
+          val.map { |v| as_json_nested(v) }
+        elsif val.respond_to?(:as_json)
+          val.as_json
+        else
+          val
+        end
       end
 
       init
@@ -200,10 +206,6 @@ module RbVmomi
 
       def to_s
         "#{self.class.wsdl_name}(#{@ref.inspect})"
-      end
-
-      def to_hash
-        to_s
       end
 
       def pretty_print pp
@@ -281,7 +283,7 @@ module RbVmomi
         @value = value
       end
 
-      def to_hash
+      def to_s
         value
       end
 
