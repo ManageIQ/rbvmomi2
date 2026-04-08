@@ -259,7 +259,7 @@ class VmodlHelper
     when 'urn:sms'
       RbVmomi::SMS
     else
-      raise ArgumentError, "Unrecognized namespace [#{type}]"
+      raise ArgumentError, "Unrecognized namespace [#{type.targetnamespace}]"
     end
   end
 
