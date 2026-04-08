@@ -104,7 +104,7 @@ class VmodlHelper
       vmodl_data = @vmodl[type_name] || build_wsdl_class!(type)
       props_by_name = vmodl_data['props'].index_by { |prop| prop['name'] }
 
-      vmodl_data['props'] = wsdl_properties(type).map do |element|
+      vmodl_data['props'] = wsdl_properties(type).flat_map do |element|
         # NOTE we should prioritize the existing property hash over building a
         # new one because the generic ManagedObjectReferences are manually
         # replaced with their specific counterparts (e.g. Datastore) which
@@ -197,13 +197,19 @@ class VmodlHelper
   end
 
   def build_vmodl_property(element)
-    {
-      'name'           => element.name.name,
-      'is-optional'    => element.minoccurs == 0,
-      'is-array'       => element.maxoccurs != 1,
-      'version-id-ref' => nil,
-      'wsdl_type'      => wsdl_to_vmodl_type(element.type)
-    }
+    # If the element is a Group then we have to recurse through the nested
+    # elements and build a vmodl property for each.
+    if element.kind_of?(WSDL::XMLSchema::Group)
+      element.content.elements.flat_map { |e| build_vmodl_property(e) }
+    else
+      {
+        'name'           => element.name.name,
+        'is-optional'    => element.minoccurs == 0,
+        'is-array'       => element.maxoccurs != 1,
+        'version-id-ref' => nil,
+        'wsdl_type'      => wsdl_to_vmodl_type(element.type)
+      }
+    end
   end
 
   def wsdl_properties(type)
