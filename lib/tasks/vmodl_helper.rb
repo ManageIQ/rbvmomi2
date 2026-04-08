@@ -8,6 +8,7 @@ require 'rbvmomi'
 require 'rbvmomi/pbm'
 require 'rbvmomi/sms'
 require 'rbvmomi/vsan'
+require 'rbvmomi/vslm'
 
 class VmodlHelper
   class << self
@@ -248,7 +249,7 @@ class VmodlHelper
 
   def wsdl_to_vmodl_type(type)
     case type.source
-    when /vim25:/, /pbm:/, /sms:/, /vsan:/
+    when /vim25:/, /pbm:/, /sms:/, /vsan:/, /vslm:/
       vmodl_type = type.name == 'ManagedObjectReference' ? 'ManagedObject' : type.name
     when /xsd:/
       vmodl_type = type.source
