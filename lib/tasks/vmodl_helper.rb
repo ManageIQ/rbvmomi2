@@ -7,6 +7,7 @@ require 'wsdl/parser'
 require 'rbvmomi'
 require 'rbvmomi/pbm'
 require 'rbvmomi/sms'
+require 'rbvmomi/vsan'
 
 class VmodlHelper
   class << self
@@ -139,6 +140,8 @@ class VmodlHelper
         vmodl_klass = wsdl_constantize(vmodl_prop['wsdl_type'])
         wsdl_klass  = wsdl_constantize(wsdl_prop.type.source)
 
+        next if vmodl_klass.nil? || wsdl_klass.nil?
+
         vmodl_prop['wsdl_type'] = wsdl_klass.wsdl_name unless vmodl_klass <= wsdl_klass
       end
     end
@@ -245,7 +248,7 @@ class VmodlHelper
 
   def wsdl_to_vmodl_type(type)
     case type.source
-    when /vim25:/, /pbm:/, /sms:/
+    when /vim25:/, /pbm:/, /sms:/, /vsan:/
       vmodl_type = type.name == 'ManagedObjectReference' ? 'ManagedObject' : type.name
     when /xsd:/
       vmodl_type = type.source
