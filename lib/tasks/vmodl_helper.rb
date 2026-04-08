@@ -257,16 +257,10 @@ class VmodlHelper
   end
 
   def wsdl_to_rbvmomi_namespace(type)
-    case type.targetnamespace
-    when 'urn:vim25'
-      RbVmomi::VIM
-    when 'urn:pbm'
-      RbVmomi::PBM
-    when 'urn:sms'
-      RbVmomi::SMS
-    else
-      raise ArgumentError, "Unrecognized namespace [#{type.targetnamespace}]"
-    end
+    ns = type.targetnamespace.split(':').last
+    ns = 'vim' if ns == 'vim25'
+
+    RbVmomi.const_get(ns.upcase, false)
   end
 
   # Normalize the type, some of these don't have RbVmomi equivalents such as xsd:long
