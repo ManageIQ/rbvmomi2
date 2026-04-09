@@ -131,10 +131,9 @@ module RbVmomi
       keys
     end
 
-    add_extension_dir File.join(File.dirname(__FILE__), 'vim')
+    add_extension_dir File.join(__dir__, 'vim')
     (ENV['RBVMOMI_VIM_EXTENSION_PATH']||'').split(':').each { |dir| add_extension_dir dir }
 
-    load_vmodl(ENV['VMODL'] || File.join(File.dirname(__FILE__), '../../vmodl.db'))
+    load_vmodl(ENV['VMODL'] || File.join(__dir__, '../../vmodl.db'))
   end
-
 end
