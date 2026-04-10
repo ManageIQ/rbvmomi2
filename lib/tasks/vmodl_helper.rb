@@ -7,6 +7,8 @@ require 'wsdl/parser'
 require 'rbvmomi'
 require 'rbvmomi/pbm'
 require 'rbvmomi/sms'
+require 'rbvmomi/vsan'
+require 'rbvmomi/vslm'
 
 class VmodlHelper
   class << self
@@ -104,7 +106,7 @@ class VmodlHelper
       vmodl_data = @vmodl[type_name] || build_wsdl_class!(type)
       props_by_name = vmodl_data['props'].index_by { |prop| prop['name'] }
 
-      vmodl_data['props'] = wsdl_properties(type).map do |element|
+      vmodl_data['props'] = wsdl_properties(type).flat_map do |element|
         # NOTE we should prioritize the existing property hash over building a
         # new one because the generic ManagedObjectReferences are manually
         # replaced with their specific counterparts (e.g. Datastore) which
@@ -138,6 +140,8 @@ class VmodlHelper
 
         vmodl_klass = wsdl_constantize(vmodl_prop['wsdl_type'])
         wsdl_klass  = wsdl_constantize(wsdl_prop.type.source)
+
+        next if vmodl_klass.nil? || wsdl_klass.nil?
 
         vmodl_prop['wsdl_type'] = wsdl_klass.wsdl_name unless vmodl_klass <= wsdl_klass
       end
@@ -197,13 +201,19 @@ class VmodlHelper
   end
 
   def build_vmodl_property(element)
-    {
-      'name'           => element.name.name,
-      'is-optional'    => element.minoccurs == 0,
-      'is-array'       => element.maxoccurs != 1,
-      'version-id-ref' => nil,
-      'wsdl_type'      => wsdl_to_vmodl_type(element.type)
-    }
+    # If the element is a Group then we have to recurse through the nested
+    # elements and build a vmodl property for each.
+    if element.kind_of?(WSDL::XMLSchema::Group)
+      element.content.elements.flat_map { |e| build_vmodl_property(e) }
+    else
+      {
+        'name'           => element.name.name,
+        'is-optional'    => element.minoccurs == 0,
+        'is-array'       => element.maxoccurs != 1,
+        'version-id-ref' => nil,
+        'wsdl_type'      => wsdl_to_vmodl_type(element.type)
+      }
+    end
   end
 
   def wsdl_properties(type)
@@ -239,7 +249,7 @@ class VmodlHelper
 
   def wsdl_to_vmodl_type(type)
     case type.source
-    when /vim25:/, /pbm:/, /sms:/
+    when /vim25:/, /pbm:/, /sms:/, /vsan:/, /vslm:/
       vmodl_type = type.name == 'ManagedObjectReference' ? 'ManagedObject' : type.name
     when /xsd:/
       vmodl_type = type.source
@@ -251,16 +261,10 @@ class VmodlHelper
   end
 
   def wsdl_to_rbvmomi_namespace(type)
-    case type.targetnamespace
-    when 'urn:vim25'
-      RbVmomi::VIM
-    when 'urn:pbm'
-      RbVmomi::PBM
-    when 'urn:sms'
-      RbVmomi::SMS
-    else
-      raise ArgumentError, "Unrecognized namespace [#{type}]"
-    end
+    ns = type.targetnamespace.split(':').last
+    ns = 'vim' if ns == 'vim25'
+
+    RbVmomi.const_get(ns.upcase, false)
   end
 
   # Normalize the type, some of these don't have RbVmomi equivalents such as xsd:long

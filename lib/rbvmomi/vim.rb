@@ -34,7 +34,7 @@ module RbVmomi
       opts[:port] ||= (opts[:ssl] ? 443 : 80)
       opts[:path] ||= '/sdk'
       opts[:ns] ||= 'urn:vim25'
-      opts[:rev] = '8.0' if opts[:rev].nil?
+      opts[:rev] = '9.0' if opts[:rev].nil?
       opts[:debug] = (!ENV['RBVMOMI_DEBUG'].empty? rescue false) unless opts.member? :debug
 
       conn = new(opts).tap do |vim|

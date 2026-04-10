@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Add VCF 9.0 support ([#82](https://github.com/ManageIQ/rbvmomi2/pull/82))
+
 ## [3.8.0] - 2024-07-03
 ### Added
 - Add vSphere 8.0U3 support ([#56](https://github.com/ManageIQ/rbvmomi2/pull/56))
