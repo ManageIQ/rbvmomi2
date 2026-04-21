@@ -48,6 +48,11 @@ class RbVmomi::TrivialSoap
       @http.use_ssl = true
       @http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @opts[:insecure]
       @http.ca_file = @opts[:ca_file] if @opts[:ca_file]
+      if @opts[:cert_store]
+        @http.cert_store = @opts[:cert_store]
+      elsif @opts[:ca_cert]
+        @http.cert_store = OpenSSL::X509::Store.new.add_cert(OpenSSL::X509::Certificate.new(@opts[:ca_cert]))
+      end
       @http.cert = OpenSSL::X509::Certificate.new(@opts[:cert]) if @opts[:cert]
       @http.key = OpenSSL::PKey::RSA.new(@opts[:key]) if @opts[:key]
     end

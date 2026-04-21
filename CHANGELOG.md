@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Add `:cert_store` and `:ca_cert` options to `RbVmomi::TrivialSoap`
+
 ## [3.9.0] - 2026-04-10
 ### Added
 - Add VCF 9.0 support ([#82](https://github.com/ManageIQ/rbvmomi2/pull/82))

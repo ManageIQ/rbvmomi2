@@ -80,7 +80,8 @@ A few important points:
 *   If you don't have trusted SSL certificates installed on the host you're
     connecting to, you'll get an `OpenSSL::SSL::SSLError` "certificate verify
     failed". You can work around this by using the `:insecure` option to
-    `RbVmomi::VIM.connect`.
+    `RbVmomi::VIM.connect` or by passing the certificate authority with the `:ca_file`,
+    `:ca_cert`, or `:cert_store` options.
 *   This is a side project of a VMware employee and is entirely unsupported by
     VMware.
 
