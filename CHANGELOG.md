@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add VCF 9.1 support ([#98](https://github.com/ManageIQ/rbvmomi2/pull/98))
 
 ## [3.10.0] - 2026-04-21
 ### Added
