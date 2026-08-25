@@ -12,7 +12,7 @@ maintained by programmers like you!
 
 RbVmomi is a Ruby interface to the vSphere API. Like the Perl and Java SDKs,
 you can use it to manage ESX and vCenter servers. The current release
-supports the vSphere 9.0 API. RbVmomi specific documentation is
+supports the vSphere 9.1 API. RbVmomi specific documentation is
 [online](http://rdoc.info/github/ManageIQ/rbvmomi2/master/frames) and is meant to
 be used alongside the official [documentation](https://developer.broadcom.com/xapis/vsphere-web-services-api/latest/).
 
