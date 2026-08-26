@@ -1,0 +1,51 @@
+---
+name: Generate vmodl.db
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: 0 0 * * 0
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  generate:
+    name: Generate vmodl.db from vcf-api-specs
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout rbvmomi2
+      uses: actions/checkout@v7
+    - name: Checkout vcf-api-specs
+      uses: actions/checkout@v7
+      with:
+        repository: vmware/vcf-api-specs
+        path: vcf-api-specs
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    - name: Generate PBM
+      run: bundle exec rake vmodl:generate -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/pbm/pbm.wsdl
+    - name: Generate VSLM
+      run: bundle exec rake vmodl:generate -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/vslm/vslm.wsdl
+    - name: Generate SMS
+      run: bundle exec rake vmodl:generate -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/sms/sms.wsdl
+    - name: Generate VIM
+      run: bundle exec rake vmodl:generate -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/vim/vim.wsdl
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        add-paths: vmodl.db
+        commit-message: Update vmodl.db from latest vcf-api-specs
+        branch: vmodl-generate
+        author: ManageIQ Bot <bot@manageiq.org>
+        committer: ManageIQ Bot <bot@manageiq.org>
+        delete-branch: true
+        labels: enhancement
+        assignees: agrare
+        push-to-fork: miq-bot/rbvmomi2
+        title: Update vmodl.db from latest vcf-api-specs
+        body: Automated update of `vmodl.db` generated from the latest [vcf-api-specs](https://github.com/vmware/vcf-api-specs).
+        token: "${{ secrets.PR_TOKEN }}"
