@@ -1,39 +1,37 @@
+---
 name: Verify vmodl.db
-
 on:
   pull_request:
   workflow_dispatch:
   schedule:
-  - cron: '0 0 * * 0'
-
+  - cron: 0 0 * * 0
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+permissions:
+  contents: read
 jobs:
   verify:
     name: Verify vmodl.db against vcf-api-specs
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout rbvmomi2
-        uses: actions/checkout@v7
-
-      - name: Checkout vcf-api-specs
-        uses: actions/checkout@v7
-        with:
-          repository: vmware/vcf-api-specs
-          path: vcf-api-specs
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true
-
-      - name: Verify VIM
-        run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/vim/vim.wsdl
-
-      - name: Verify PBM
-        run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/pbm/pbm.wsdl
-
-      - name: Verify VSLM
-        run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/vslm/vslm.wsdl
-
-      - name: Verify SMS
-        run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/sms/sms.wsdl
+    - name: Checkout rbvmomi2
+      uses: actions/checkout@v7
+    - name: Checkout vcf-api-specs
+      uses: actions/checkout@v7
+      with:
+        repository: vmware/vcf-api-specs
+        path: vcf-api-specs
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    - name: Verify VIM
+      run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/vim/vim.wsdl
+    - name: Verify PBM
+      run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/pbm/pbm.wsdl
+    - name: Verify VSLM
+      run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/vslm/vslm.wsdl
+    - name: Verify SMS
+      run: bundle exec rake vmodl:verify -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/sms/sms.wsdl
