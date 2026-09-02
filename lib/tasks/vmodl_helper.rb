@@ -155,6 +155,7 @@ class VmodlHelper
   def load_wsdl(path)
     # WSDL includes have to resolve in the local directory so we have to
     # change working directories to where the wsdl is
+    path = path.expand_path
     Dir.chdir(path.dirname) do
       WSDL::Parser.new.parse(path.read)
     end
