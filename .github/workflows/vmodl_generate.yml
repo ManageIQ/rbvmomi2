@@ -35,7 +35,7 @@ jobs:
     - name: Generate VIM
       run: bundle exec rake vmodl:generate -- --wsdl=vcf-api-specs/specifications/vsphere/wsdl/vim/vim.wsdl
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       with:
         add-paths: vmodl.db
         commit-message: Update vmodl.db from latest vcf-api-specs
