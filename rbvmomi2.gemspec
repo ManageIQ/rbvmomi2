@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables << 'rbvmomish'
 
   spec.add_runtime_dependency('builder', '~> 3.2')
-  spec.add_runtime_dependency('json', '~> 2.3')
+  spec.add_runtime_dependency('json', '>= 2.3', '< 4.0')
   spec.add_runtime_dependency('nokogiri', '>= 1.12.5', '~> 1.12')
   spec.add_runtime_dependency('optimist', '~> 3.0')
 
