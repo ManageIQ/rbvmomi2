@@ -176,7 +176,7 @@ module RbVmomi
       end
 
       def to_json(options = nil)
-        to_hash.merge(JSON.create_id => self.class.name).to_json
+        to_hash.merge('json_class' => self.class.name).to_json
       end
 
       init
