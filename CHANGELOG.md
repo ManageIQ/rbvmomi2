@@ -3,8 +3,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [3.11.0] - 2026-10-08
 ### Added
 - Add VCF 9.1 support ([#98](https://github.com/ManageIQ/rbvmomi2/pull/98))
+- Add a GHA to verify VMODL against vcf-api-specs ([#99](https://github.com/ManageIQ/rbvmomi2/pull/99))
+- Add a vmodl_generate GHA to automatically update vmodl.db ([#100](https://github.com/ManageIQ/rbvmomi2/pull/100))
+- Add Ruby 3.4 and 4.0 to test matrix ([#104](https://github.com/ManageIQ/rbvmomi2/pull/104))
+- Support JSON v2 and v3 ([#106](https://github.com/ManageIQ/rbvmomi2/pull/106))
 
 ## [3.10.0] - 2026-04-21
 ### Added
@@ -86,7 +92,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix unescaped characters in Datastore URLs ([#183](https://github.com/vmware/rbvmomi/pull/183))
 - Improve #to_json behavior on RbVmomi Objects ([#185](https://github.com/vmware/rbvmomi/pull/185))
 
-[Unreleased]: https://github.com/ManageIQ/rbvmomi2/compare/v3.9.0...HEAD
+[Unreleased]: https://github.com/ManageIQ/rbvmomi2/compare/v3.11.0...HEAD
+[3.11.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.10.0...v3.11.0
+[3.10.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.9.0...v3.10.0
 [3.9.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.8.0...v3.9.0
 [3.8.0]: https://github.com/ManageIQ/rbvmomi2/compare/v3.7.1...v3.8.0
 [3.7.1]: https://github.com/ManageIQ/rbvmomi2/compare/v3.7.0...v3.7.1
